@@ -5,7 +5,7 @@ import styles from "../../styles/button.module.css";
 const CustomButton = React.forwardRef((props, ref) => {
   const { children } = props;
   return (
-    <Button variant="contained" ref={ref} className={styles.CustomButton}>
+    <Button selected variant="contained" ref={ref} className={styles.Button}>
       {children}
     </Button>
   );

@@ -3,10 +3,10 @@ import CustomInput from "../components/UI/CustomInput";
 import styles from "../styles/form.module.css";
 import { Link } from "react-router-dom";
 
-const LoginScreen = () => {
+const SignUpScreen = () => {
   return (
     <form className={styles.form}>
-      <h1>Login</h1>
+      <h1>Sign Up</h1>
       <CustomInput
         labelText="email"
         id="email"
@@ -19,12 +19,18 @@ const LoginScreen = () => {
         handleChange={() => {}}
         type="password"
       />
-      <CustomButton>Log in</CustomButton>
+      <CustomInput
+        labelText="confirm password"
+        id="confirmPassword"
+        handleChange={() => {}}
+        type="password"
+      />
+      <CustomButton>Sign Up</CustomButton>
       <p>
-        don't have an account ? <Link to="sign-up">Sign Up</Link>{" "}
+        have an account ? <Link to="/">Log In</Link>{" "}
       </p>
     </form>
   );
 };
 
-export default LoginScreen;
+export default SignUpScreen;

@@ -5,8 +5,16 @@ import styles from "../../styles/button.module.css";
 const CustomButton = React.forwardRef((props, ref) => {
   const { children } = props;
   return (
-    <Button selected variant="contained" ref={ref} className={styles.Button}>
-      {children}
+    <Button
+     selected 
+     size="large"
+     disableElevation
+     variant="contained" 
+     color="primary" 
+     ref={ref}
+     className={styles.Button}>
+
+     {children}
     </Button>
   );
 });

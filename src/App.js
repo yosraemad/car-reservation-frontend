@@ -8,6 +8,8 @@ import { ThemeProvider } from "@material-ui/core";
 import theme from "./theme.js";
 import AccountProvider from "./store/UserProvider";
 import AdminScreen from "./pages/admin-screen";
+import NewCarDescScreen from "./pages/new-car-desc-screen";
+import CreateCarScreen from "./pages/create-car-screen";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route path="sign-up" element={<SignUpScreen></SignUpScreen>} />
           <Route path="home" element={<HomeScreen></HomeScreen>} />
           <Route path="admin" element={<AdminScreen />} />
+          <Route path="new-car-desc" element={<NewCarDescScreen />} />
+          <Route path="create-car" element={<CreateCarScreen />} />
         </Routes>
       </AccountProvider>
     </ThemeProvider>

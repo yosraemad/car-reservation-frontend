@@ -32,6 +32,7 @@ const LoginScreen = () => {
       },
       userLogin.bind(null)
     );
+
     console.log(response);
   };
   return (

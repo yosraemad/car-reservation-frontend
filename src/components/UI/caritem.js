@@ -10,11 +10,7 @@ const CarItem = (props) => {
   return (
     <Card sx={{ maxWidth: 200 }}>
       <CardActionArea>
-        <CardMedia
-          component="img"
-          height="160"
-          image="https://www.1auto.co/storage/ready_for_sales/20210914113121_photo-1552519507-da3b142c6e3d.jpg"
-        />
+        <CardMedia component="img" height="160" image={carDescription.image} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {carDescription.brand}

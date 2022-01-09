@@ -10,6 +10,7 @@ import AccountProvider from "./store/UserProvider";
 import AdminScreen from "./pages/admin-screen";
 import NewCarDescScreen from "./pages/new-car-desc-screen";
 import CreateCarScreen from "./pages/create-car-screen";
+import ReservationScreen from "./pages/reservation-screen";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="admin" element={<AdminScreen />} />
           <Route path="new-car-desc" element={<NewCarDescScreen />} />
           <Route path="create-car" element={<CreateCarScreen />} />
+          <Route path="reservation" element={<ReservationScreen />} />
         </Routes>
       </AccountProvider>
     </ThemeProvider>

@@ -9,12 +9,13 @@ const LoginScreen = () => {
   const accCtx = useContext(AccountContext);
   const navigate = useNavigate();
 
-  if (accCtx.token) {
+  if (accCtx.token || localStorage.getItem("token")) {
     navigate("/home");
   }
 
   const userLogin = (responseData) => {
     console.log(responseData);
+    localStorage.setItem("token", responseData.token);
     if (responseData.role === "customer") {
       accCtx.setAccount(responseData.customer, responseData.token);
       navigate("/home");

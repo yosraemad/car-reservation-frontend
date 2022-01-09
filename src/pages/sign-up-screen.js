@@ -9,13 +9,14 @@ const SignUpScreen = () => {
   const accCtx = useContext(AccountContext);
   const navigate = useNavigate();
 
-  if (accCtx.token) {
+  if (accCtx.token || localStorage.getItem("token")) {
     navigate("/home");
   }
 
   const createUser = (userData, responseData) => {
     console.log(userData);
     console.log(responseData);
+    localStorage.setItem("token", responseData.token);
     accCtx.setAccount(responseData.user, responseData.token);
   };
   const enterUserHandler = async (userData) => {

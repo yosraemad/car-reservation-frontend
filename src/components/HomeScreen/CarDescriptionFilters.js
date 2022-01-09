@@ -4,6 +4,7 @@ import CustomInput from "../UI/CustomInput";
 import CustomButton from "../UI/CustomButton";
 
 const CarDescriptionFilters = (props) => {
+  const brandRef = useRef();
   const modelRef = useRef();
   const yearRef = useRef();
   const colorRef = useRef();
@@ -13,6 +14,9 @@ const CarDescriptionFilters = (props) => {
 
   const filter = () => {
     let queryString = "?";
+    if (brandRef.current.value !== "") {
+      queryString += `brand=${brandRef.current.value}&`;
+    }
     if (modelRef.current.value !== "") {
       queryString += `model=${modelRef.current.value}&`;
     }
@@ -37,6 +41,14 @@ const CarDescriptionFilters = (props) => {
 
   return (
     <div>
+      <label className={labelstyles.label}>Brand</label>
+      <CustomInput
+        labelText="brand"
+        id="brand"
+        handleChange={() => {}}
+        type="text"
+        ref={brandRef}
+      />
       <label className={labelstyles.label}>Model</label>
       <CustomInput
         labelText="model"

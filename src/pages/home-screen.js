@@ -29,7 +29,7 @@ const HomeScreen = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + accCtx.token,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         },
         setCarData.bind(null)
@@ -53,7 +53,7 @@ const HomeScreen = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + accCtx.token,
+            Authorization: "Bearer " + localStorage.getItem("token"),
           },
         },
         setOfficeData.bind(null)
@@ -63,13 +63,13 @@ const HomeScreen = () => {
     await getOffices();
   }, []);
 
-  return accCtx.token ? (
+  return accCtx.token || localStorage.getItem("token") ? (
     <>
       <Filters
         offices={offices}
         currentOffice={cars[0] && cars[0].office_id}
         setCars={setCars}
-        token={accCtx.token}
+        token={localStorage.getItem("token")}
       />
       <AvailableCars cars={cars} />
     </>

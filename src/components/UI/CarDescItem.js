@@ -37,7 +37,7 @@ const CarDescItem = (props) => {
       </CardActionArea>
       <CardActions>
         <Button
-          onClick={() => navigate("/create-car", { state: carDesc })}
+          onClick={() => navigate("/create-office-car", { state: carDesc })}
           size="small"
           color="primary"
         >

@@ -30,13 +30,14 @@ const NewCarDescScreen = () => {
     };
 
     const getCarDescs = async () => {
+      const token = localStorage.getItem("token");
       const response = await sendRequest(
         {
           url: "http://localhost:5000/api/v1/car-descriptions",
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: "Bearer " + accCtx.token,
+            Authorization: "Bearer " + token,
           },
         },
         setCarData.bind(null)
@@ -46,24 +47,36 @@ const NewCarDescScreen = () => {
     await getCarDescs();
   }, []);
 
+  const cx = (data) => {
+    console.log(data);
+  };
+
   const createCarDesc = async () => {
-    const response = await sendRequest({
-      url: "http://localhost:5000/api/v1/car-descriptions",
-      method: "POST",
-      body: {
-        model,
-        year,
-        transmission,
-        color,
-        type,
-        brand,
-        image,
+    const token = localStorage.getItem("token");
+    console.log(token);
+
+    const reqBody = {
+      model: model.current.value,
+      year: year.current.value,
+      transmission: transmission.current.value,
+      color: color.current.value,
+      type: type.current.value,
+      brand: brand.current.value,
+      image: image.current.value,
+    };
+
+    const response = await sendRequest(
+      {
+        url: "http://localhost:5000/api/v1/car-descriptions",
+        method: "POST",
+        body: reqBody,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
       },
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + accCtx.token,
-      },
-    });
+      cx.bind(null)
+    );
 
     alert("new car description created");
   };
@@ -73,7 +86,7 @@ const NewCarDescScreen = () => {
       <h1>New Desc Car Screen</h1>
 
       {carDescs.map((carDesc) => (
-        <CarDescItem carDesc={carDesc} />
+        <CarDescItem key={carDesc.car_description_id} carDesc={carDesc} />
       ))}
 
       <label> model</label>
@@ -103,9 +116,7 @@ const NewCarDescScreen = () => {
       <CustomInput ref={image} labelText="image" id="image" type="text" />
       <br />
 
-      <Button onClick={() => createCarDesc()}>
-        Create new car description
-      </Button>
+      <button onClick={createCarDesc}>Create new car description</button>
     </div>
   );
 };

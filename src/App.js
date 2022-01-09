@@ -11,6 +11,9 @@ import AdminScreen from "./pages/admin-screen";
 import NewCarDescScreen from "./pages/new-car-desc-screen";
 import CreateCarScreen from "./pages/create-car-screen";
 import ReservationScreen from "./pages/reservation-screen";
+import CarSearchScreen from "./pages/car-search-screen";
+import CustomerSearchScreen from "./pages/customer-search-screen";
+import CreateCarOfficeScreen from "./pages/create-car-office-screen";
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
           <Route path="new-car-desc" element={<NewCarDescScreen />} />
           <Route path="create-car" element={<CreateCarScreen />} />
           <Route path="reservation" element={<ReservationScreen />} />
+          <Route path="car-search" element={<CarSearchScreen />} />
+          <Route path="customer-search" element={<CustomerSearchScreen />} />
+          <Route path="create-office-car" element={<CreateCarOfficeScreen />} />
         </Routes>
       </AccountProvider>
     </ThemeProvider>

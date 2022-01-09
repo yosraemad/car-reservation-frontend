@@ -8,6 +8,7 @@ const AdminScreen = () => {
     <div>
       <h1>Admin Screen</h1>
       <button onClick={() => navigate("/new-car-desc")}>create car</button>
+      <button onClick={() => navigate("/car-search")}>CarSearchScreen</button>
     </div>
   );
 };

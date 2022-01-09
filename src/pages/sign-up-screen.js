@@ -1,40 +1,38 @@
-import CustomButton from "../components/UI/CustomButton";
-import CustomInput from "../components/UI/CustomInput";
-import styles from "../styles/form.module.css";
-import { Link } from "react-router-dom";
-import React from "react";
-import labelstyles from "../styles/label.module.css";
+import SignUpForm from "../components/SignUp/signup-form";
+import useHttp from "../hooks/use-http";
+import React, { useContext } from "react";
+import AccountContext from "../models/account";
+import { useNavigate } from "react-router-dom";
 
 const SignUpScreen = () => {
+  const { isLoading, error, sendRequest } = useHttp();
+  const accCtx = useContext(AccountContext);
+  const navigate = useNavigate();
+
+  const createUser = (userData, responseData) => {
+    console.log(userData);
+    console.log(responseData);
+    accCtx.setAccount(responseData.user, responseData.token);
+  };
+  const enterUserHandler = async (userData) => {
+    const response = await sendRequest(
+      {
+        url: "http://localhost:5000/api/v1/auth/register",
+        method: "POST",
+        body: userData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+      createUser.bind(null, userData)
+    );
+    !error ? navigate("/home") : console.log(error);
+  };
   return (
-    <form className={styles.form}>
-      <h1 className={labelstyles.header} >Sign Up</h1><br></br>
-      <label className={labelstyles.label}>Email</label>
-      <CustomInput
-        labelText="email"
-        id="email"
-        handleChange={() => {}}
-        type="text"
-      />
-      <label className={labelstyles.label} >Password</label>
-      <CustomInput
-        labelText="password"
-        id="password"
-        handleChange={() => {}}
-        type="password"
-      />
-      <label className={labelstyles.label}>Confirm Password</label>
-      <CustomInput
-        labelText="confirm password"
-        id="confirmPassword"
-        handleChange={() => {}}
-        type="password"
-      />
-      <CustomButton>Sign Up</CustomButton><br></br>
-      <p>
-        have an account ? <Link to="/">Log In</Link>{" "}
-      </p>
-    </form>
+    <>
+      <SignUpForm onSubmitForm={enterUserHandler} loading={isLoading} />
+      {error && <p>{error}</p>}
+    </>
   );
 };
 

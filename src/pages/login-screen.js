@@ -1,38 +1,44 @@
-import CustomButton from "../components/UI/CustomButton";
-import CustomInput from "../components/UI/CustomInput";
-import styles from "../styles/form.module.css";
-import { Link } from "react-router-dom";
-import React from "react";
-import labelstyles from "../styles/label.module.css";
+import React, { useContext } from "react";
+import SignInForm from "../components/SignIn/SignInForm";
+import useHttp from "../hooks/use-http";
+import AccountContext from "../models/account";
+import { useNavigate } from "react-router-dom";
 
 const LoginScreen = () => {
+  const { isLoading, error, sendRequest } = useHttp();
+  const accCtx = useContext(AccountContext);
+  const navigate = useNavigate();
+
+  const userLogin = (responseData) => {
+    console.log(responseData);
+    if (responseData.role === "customer") {
+      accCtx.setAccount(responseData.customer, responseData.token);
+      navigate("/home");
+    } else {
+      accCtx.setAccount(responseData.admin, responseData.token);
+      navigate("/admin");
+    }
+  };
+
+  const signInHandler = async (userData) => {
+    const response = await sendRequest(
+      {
+        url: "http://localhost:5000/api/v1/auth/login",
+        method: "POST",
+        body: userData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+      userLogin.bind(null)
+    );
+    console.log(response);
+  };
   return (
-    <form className={styles.form}>
-      <h1 className={labelstyles.header}>Login</h1><br></br>
-      <label className={labelstyles.label} >Email</label>
-      <CustomInput
-        labelText="email"
-        id="email"
-        handleChange={() => {}}
-        type="text"
-      />
-      <label >Password</label>
-      <CustomInput
-        labelText="password"
-        id="password"
-        handleChange={() => {}}
-        type="password"
-      />
-      <CustomButton>Log in</CustomButton><br></br>
-      <p>
-        don't have an account ? <Link to="sign-up">Sign Up</Link>{" "}
-      </p>
-      <br>
-      </br>
-      <p>
-        Move to home screen ? <Link to="home">Home Screen</Link>{" "}
-      </p>
-    </form>
+    <>
+      <SignInForm onSubmit={signInHandler} loading={isLoading} />
+      {error && <p>{error}</p>}
+    </>
   );
 };
 

@@ -9,6 +9,10 @@ const LoginScreen = () => {
   const accCtx = useContext(AccountContext);
   const navigate = useNavigate();
 
+  if (accCtx.token) {
+    navigate("/home");
+  }
+
   const userLogin = (responseData) => {
     console.log(responseData);
     if (responseData.role === "customer") {
@@ -32,8 +36,6 @@ const LoginScreen = () => {
       },
       userLogin.bind(null)
     );
-
-    console.log(response);
   };
   return (
     <>

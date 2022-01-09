@@ -4,6 +4,7 @@ import React from "react";
 
 const defaultAccountState = {
   account: {},
+  token: null,
 };
 
 const setUser = (state, account, token) => {

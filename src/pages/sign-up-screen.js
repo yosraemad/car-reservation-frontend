@@ -9,6 +9,10 @@ const SignUpScreen = () => {
   const accCtx = useContext(AccountContext);
   const navigate = useNavigate();
 
+  if (accCtx.token) {
+    navigate("/home");
+  }
+
   const createUser = (userData, responseData) => {
     console.log(userData);
     console.log(responseData);

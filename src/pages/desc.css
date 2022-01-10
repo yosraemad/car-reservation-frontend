@@ -1,0 +1,4 @@
+.carGrid {
+  display: flex;
+  flex-wrap: wrap;
+}

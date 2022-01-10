@@ -21,7 +21,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <AccountProvider>
-        <Header />
         <br></br>
         <Routes>
           <Route path="/" element={<LoginScreen></LoginScreen>}></Route>

@@ -5,6 +5,8 @@ import CarDescItem from "../components/UI/CarDescItem";
 import CustomInput from "../components/UI/CustomInput";
 import { Button } from "@material-ui/core";
 
+import "./desc.css";
+
 const NewCarDescScreen = () => {
   const [carDescs, setCarDescs] = useState([]);
   const { isLoading, error, sendRequest } = useHttp();
@@ -81,42 +83,51 @@ const NewCarDescScreen = () => {
     alert("new car description created");
   };
 
+  const labelStyle = {
+    color: "white",
+  };
+
   return (
-    <div>
-      <h1>New Desc Car Screen</h1>
+    <div style={{ padding: 30 }}>
+      <div className="carGrid">
+        {carDescs.map((carDesc) => (
+          <CarDescItem key={carDesc.car_description_id} carDesc={carDesc} />
+        ))}
+      </div>
 
-      {carDescs.map((carDesc) => (
-        <CarDescItem key={carDesc.car_description_id} carDesc={carDesc} />
-      ))}
-
-      <label> model</label>
+      <label style={labelStyle}> model : </label>
       <CustomInput ref={model} labelText="Model" id="model" type="text" />
-      <br />
-      <label> year</label>
+      <label style={labelStyle}> year : </label>
       <CustomInput ref={year} labelText="year" id="year" type="text" />
-      <br />
-      <label> brand</label>
+      <label style={labelStyle}> brand : </label>
       <CustomInput ref={brand} labelText="brand" id="brand" type="text" />
-      <br />
-      <label> color</label>
+      <label style={labelStyle}> color : </label>
       <CustomInput ref={color} labelText="color" id="color" type="text" />
       <br />
-      <label> transmission</label>
+      <label style={labelStyle}> transmission : </label>
       <CustomInput
         ref={transmission}
         labelText="transmission"
         id="transmission"
         type="text"
       />
-      <br />
-      <label> type</label>
+      <label style={labelStyle}> type : </label>
       <CustomInput ref={type} labelText="type" id="type" type="text" />
-      <br />
-      <label> image</label>
+      <label style={labelStyle}> image : </label>
       <CustomInput ref={image} labelText="image" id="image" type="text" />
       <br />
 
-      <button onClick={createCarDesc}>Create new car description</button>
+      <button
+        style={{
+          width: 300,
+          height: 100,
+          color: "white",
+          backgroundColor: "blue",
+        }}
+        onClick={createCarDesc}
+      >
+        Create new car description
+      </button>
     </div>
   );
 };

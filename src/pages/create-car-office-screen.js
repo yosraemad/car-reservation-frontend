@@ -85,10 +85,12 @@ const CreateCarOfficeScreen = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Create Car Office screen</h1>
-      <label>plate_id</label>
+    <div style={{ padding: 40 }}>
+      <h1 style={{ color: "white" }}>Create Car Office screen</h1>
+      <br />
+      <label style={{ color: "white" }}>plate_id: </label>
       <CustomInput ref={plate_id} type="text" id="plate_id"></CustomInput>
+      <br />
       <Button
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
@@ -121,7 +123,13 @@ const CreateCarOfficeScreen = () => {
           );
         })}
       </Menu>
-      <button onClick={createOfficeCar}>
+      <br />
+      <br />
+      <br />
+      <button
+        style={{ height: 100, color: "white", backgroundColor: "blue" }}
+        onClick={createOfficeCar}
+      >
         create car assoicated with the office
       </button>
     </div>

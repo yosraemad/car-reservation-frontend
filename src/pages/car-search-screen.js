@@ -2,8 +2,15 @@ import React, { useEffect, useState, useContext, useRef } from "react";
 import CustomInput from "../components/UI/CustomInput";
 import CustomButton from "../components/UI/CustomButton";
 import labelstyles from "../styles/label.module.css";
+import useHttp from "../hooks/use-http";
+import CarDescItem from "../components/UI/CarDescItem";
 
 const CarSearchScreen = () => {
+
+  const { isLoading, error, sendRequest } = useHttp();
+
+  const [car, setCars] = useState([]);
+
   const brandRef = useRef();
   const modelRef = useRef();
   const yearRef = useRef();
@@ -11,6 +18,34 @@ const CarSearchScreen = () => {
   const transmissionRef = useRef();
   const typeRef = useRef();
   const imageRef = useRef();
+
+  const filterCar = (responseData) => {
+    console.log(responseData);
+    if (responseData) {
+      let carArr = [];
+      for (let i = 0; i < responseData.length; i++) {
+        carArr.push(responseData[i]);
+      }
+
+      setCars(carArr);
+    }
+  };
+
+  
+  const handleFiltering = async (queryString) => {
+    const token = localStorage.getItem("token");
+    const response = await sendRequest(
+      {
+        url: "http://localhost:5000/api/v1/cars" + queryString,
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      },
+      filterCar.bind(null)
+    );
+  };
 
   const filter = () => {
     let queryString = "?";
@@ -35,13 +70,17 @@ const CarSearchScreen = () => {
     if (imageRef.current.value !== "") {
       queryString += `image=${imageRef.current.value}&`;
     }
-
+    handleFiltering(queryString);
     // handleFilter
     // props.handleFilter(queryString);
   };
 
   return (
+    
+   
     <div>
+    
+
       <label className={labelstyles.label}>Brand</label>
       <CustomInput
         labelText="brand"
@@ -99,6 +138,17 @@ const CarSearchScreen = () => {
         ref={imageRef}
       />
       <CustomButton onClicked={filter}>Filter</CustomButton>
+
+
+      
+      {car.map((car) => (
+        <div key={car.car_id}>
+          <h4> car number : {car.car_id} </h4>
+          <h4> status : {car.CarStatus.status} </h4>
+         <CarDescItem  carDesc={car.CarDescription} />
+        </div>
+      ))}
+      
       
     </div>
   );

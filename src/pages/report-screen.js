@@ -7,11 +7,14 @@ import PaymentReport from "../components/reports/PaymentReport";
 import ReservationReport from "../components/reports/ReservationReport";
 import CustomButton from "../components/UI/CustomButton";
 import { useNavigate } from "react-router-dom";
+
 const ReportScreen = () => {
   const navigate = useNavigate();
+
   return (
-    <div>
-      <h1>Select an option</h1>
+    <div style={{ padding: 30 }}>
+      <h1 style={{ color: "white" }}>Select an option</h1>
+      <br />
       <CustomButton
         onClicked={() => {
           navigate("reservations");

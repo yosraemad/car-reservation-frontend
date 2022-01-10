@@ -44,6 +44,10 @@ const AdminScreen = () => {
       >
         Reservation advanced search
       </button>
+
+      <button style={buttonStyle} onClick={() => navigate("/reports")}>
+        Reports
+      </button>
     </div>
   );
 };

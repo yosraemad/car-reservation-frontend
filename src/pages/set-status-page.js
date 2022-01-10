@@ -41,14 +41,25 @@ const SetStatusPage = () => {
   };
 
   return (
-    <div>
-      <h1>Set Status</h1>
-      <h2>current: {car.CarStatus.status}</h2>
+    <div style={{ padding: 30 }}>
+      <h1 style={{ color: "white" }}>Set Status</h1>
+      <h2 style={{ color: "white" }}>current: {car.CarStatus.status}</h2>
       <br />
       <br />
-      <label>new status</label>
+      <label style={{ color: "white" }}>new status: </label>
       <CustomInput ref={status} labelText="status" id="status" type="text" />
-      <button onClick={updateStatus}>update status</button>
+      <br />
+      <button
+        style={{
+          height: 100,
+          width: 500,
+          backgroundColor: "blue",
+          color: "white",
+        }}
+        onClick={updateStatus}
+      >
+        update status
+      </button>
     </div>
   );
 };

@@ -6,7 +6,6 @@ import useHttp from "../hooks/use-http";
 import CarDescItem from "../components/UI/CarDescItem";
 
 const CarSearchScreen = () => {
-
   const { isLoading, error, sendRequest } = useHttp();
 
   const [car, setCars] = useState([]);
@@ -31,7 +30,6 @@ const CarSearchScreen = () => {
     }
   };
 
-  
   const handleFiltering = async (queryString) => {
     const token = localStorage.getItem("token");
     const response = await sendRequest(
@@ -75,13 +73,19 @@ const CarSearchScreen = () => {
     // props.handleFilter(queryString);
   };
 
-  return (
-    
-   
-    <div>
-    
+  const labelStyle = {
+    color: "white",
+    margin: 30,
+  };
 
-      <label className={labelstyles.label}>Brand</label>
+  const miniLabelStyle = {
+    color: "white",
+    fontSize: 20,
+  };
+
+  return (
+    <div style={{ padding: 30 }}>
+      <label style={labelStyle}>Brand</label>
       <CustomInput
         labelText="brand"
         id="brand"
@@ -89,7 +93,8 @@ const CarSearchScreen = () => {
         type="text"
         ref={brandRef}
       />
-      <label className={labelstyles.label}>Model</label>
+      <br />
+      <label style={labelStyle}>Model</label>
       <CustomInput
         labelText="model"
         id="model"
@@ -97,7 +102,9 @@ const CarSearchScreen = () => {
         type="text"
         ref={modelRef}
       />
-      <label className={labelstyles.label}>Year</label>
+      <br />
+
+      <label style={labelStyle}>Year</label>
       <CustomInput
         labelText="year"
         id="year"
@@ -105,7 +112,9 @@ const CarSearchScreen = () => {
         type="text"
         ref={yearRef}
       />
-      <label className={labelstyles.label}>Color</label>
+      <br />
+
+      <label style={labelStyle}>Color</label>
       <CustomInput
         labelText="color"
         id="color"
@@ -113,7 +122,9 @@ const CarSearchScreen = () => {
         type="text"
         ref={colorRef}
       />
-      <label className={labelstyles.label}>Transmission</label>
+      <br />
+
+      <label style={labelStyle}>Transmission</label>
       <CustomInput
         labelText="transmission"
         id="transmission"
@@ -121,7 +132,9 @@ const CarSearchScreen = () => {
         type="text"
         ref={transmissionRef}
       />
-      <label className={labelstyles.label}>Type</label>
+      <br />
+
+      <label style={labelStyle}>Type</label>
       <CustomInput
         labelText="type"
         id="type"
@@ -129,7 +142,9 @@ const CarSearchScreen = () => {
         type="text"
         ref={typeRef}
       />
-      <label className={labelstyles.label}>Image</label>
+      <br />
+
+      <label style={labelStyle}>Image</label>
       <CustomInput
         labelText="image"
         id="image"
@@ -137,19 +152,23 @@ const CarSearchScreen = () => {
         type="text"
         ref={imageRef}
       />
+      <br />
+
+      <br />
+
+      <br />
+
       <CustomButton onClicked={filter}>Filter</CustomButton>
 
-
-      
       {car.map((car) => (
         <div key={car.car_id}>
-          <h4> car number : {car.car_id} </h4>
-          <h4> status : {car.CarStatus.status} </h4>
-         <CarDescItem  carDesc={car.CarDescription} />
+          <div style={{ padding: 30 }}>
+            <h4 style={miniLabelStyle}> car number : {car.car_id} </h4>
+            <h4 style={miniLabelStyle}> status : {car.CarStatus.status} </h4>
+          </div>
+          <CarDescItem carDesc={car.CarDescription} />
         </div>
       ))}
-      
-      
     </div>
   );
 };

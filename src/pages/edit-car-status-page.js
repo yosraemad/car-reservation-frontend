@@ -7,6 +7,8 @@ import { Button, CardActionArea, CardActions } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 
+import "./desc.css";
+
 const EditCarStatusPage = () => {
   const { isLoading, error, sendRequest } = useHttp();
   const [cars, setCars] = useState([]);
@@ -42,58 +44,61 @@ const EditCarStatusPage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Edit Car Status page</h1>
-
-      {cars.map((car) => (
-        <Card sx={{ maxWidth: 400 }}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="160"
-              image={car.CarDescription.image}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                car id: {car.car_id}
-              </Typography>
-              <Typography gutterBottom variant="h5" component="div">
-                plate id: {car.plate_id}
-              </Typography>
-              <Typography gutterBottom variant="h5" component="div">
-                brand: {car.CarDescription.brand}
-              </Typography>
-              <Typography gutterBottom variant="h5" component="div">
-                model: {car.CarDescription.model}
-              </Typography>
-              <Typography gutterBottom variant="h5" component="div">
-                year: {car.CarDescription.year}
-              </Typography>
-              <Typography gutterBottom variant="h5" component="div">
-                type: {car.CarDescription.type}
-              </Typography>
-              <Typography gutterBottom variant="h5" component="div">
-                trans: {car.CarDescription.transmission}
-              </Typography>
-              <Typography gutterBottom variant="h5" component="div">
-                color: {car.CarDescription.color}
-              </Typography>
-              <Typography gutterBottom variant="h4" color="text.secondary">
-                status: color: {car.CarStatus.status}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button
-              onClick={() => navigate("/set-status", { state: car })}
-              size="small"
-              color="primary"
-            >
-              Edit Status
-            </Button>
-          </CardActions>
-        </Card>
-      ))}
+    <div style={{ padding: 30 }}>
+      <h1 style={{ color: "white" }}>Edit Car Status page</h1>
+      <br />
+      <br />
+      <div className="carGrid">
+        {cars.map((car) => (
+          <Card style={{ margin: 30 }} sx={{ maxWidth: 400 }}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="160"
+                image={car.CarDescription.image}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  car id: {car.car_id}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  plate id: {car.plate_id}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  brand: {car.CarDescription.brand}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  model: {car.CarDescription.model}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  year: {car.CarDescription.year}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  type: {car.CarDescription.type}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  trans: {car.CarDescription.transmission}
+                </Typography>
+                <Typography gutterBottom variant="h5" component="div">
+                  color: {car.CarDescription.color}
+                </Typography>
+                <Typography gutterBottom variant="h4" color="text.secondary">
+                  status: color: {car.CarStatus.status}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button
+                onClick={() => navigate("/set-status", { state: car })}
+                size="small"
+                color="primary"
+              >
+                Edit Status
+              </Button>
+            </CardActions>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 };

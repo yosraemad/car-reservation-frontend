@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -6,6 +6,7 @@ import DatePicker from "@mui/lab/DatePicker";
 import CustomInput from "../UI/CustomInput";
 import CustomButton from "../UI/CustomButton";
 import useHttp from "../../hooks/use-http";
+import { useNavigate } from "react-router-dom";
 const CarDetails = (props) => {
   const { officeCar } = props;
   const [returnDate, setReturnDate] = useState();
@@ -13,6 +14,36 @@ const CarDetails = (props) => {
   const [pickup, setPickup] = useState(null);
   const pickUpAddress = useRef();
   const [checked, setChecked] = React.useState(false);
+  const [reservations, setReservations] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(async () => {
+    const setReservationTimes = (responseData) => {
+      console.log(responseData);
+      if (responseData) {
+        let reservationsArray = [];
+        for (let i = 0; i < responseData.length; i++) {
+          reservationsArray.push(responseData[i]);
+        }
+        setReservations(reservationsArray);
+      }
+    };
+    const getReservationTimesOfCars = async () => {
+      const response = await sendRequest(
+        {
+          url: `http://localhost:5000/api/v1/reservations/car/${officeCar.car_id}`,
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        },
+        setReservationTimes.bind(null)
+      );
+    };
+
+    getReservationTimesOfCars();
+  }, []);
 
   const totalPrice =
     Math.ceil(
@@ -21,6 +52,9 @@ const CarDetails = (props) => {
 
   const reserved = (responseData) => {
     console.log(responseData);
+    if (responseData) {
+      navigate("/home");
+    }
   };
 
   const handleSubmit = () => {
@@ -111,6 +145,18 @@ const CarDetails = (props) => {
       <br />
 
       <CustomButton onClicked={handleSubmit}>Submit</CustomButton>
+      {error && <div style={{ backgroundColor: "red" }}>{error}</div>}
+      <h3>Current Reservation</h3>
+      {reservations.map((reservation) => {
+        return (
+          <div>
+            <p>
+              {reservation.Pickup.pickup_date} - {reservation.return_date}
+            </p>
+            <hr />
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -15,6 +15,8 @@ import CarSearchScreen from "./pages/car-search-screen";
 import CustomerSearchScreen from "./pages/customer-search-screen";
 import CreateCarOfficeScreen from "./pages/create-car-office-screen";
 import ReservationSearchScreen from "./pages/reservation-search-screen";
+import EditCarStatusPage from "./pages/edit-car-status-page";
+import SetStatusPage from "./pages/set-status-page";
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
           <Route path="create-office-car" element={<CreateCarOfficeScreen />} />
           <Route path="car-search" element={<CarSearchScreen />} />
           <Route path="reservation-search" element={<ReservationSearchScreen />} />
+          <Route path="edit-car-status" element={<EditCarStatusPage />} />
+          <Route path="set-status" element={<SetStatusPage />} />
         </Routes>
       </AccountProvider>
     </ThemeProvider>

@@ -13,7 +13,7 @@ const CarItem = (props) => {
     navigate(`/reservation`, { state: { officeCar } });
   };
   return (
-    <Card sx={{ maxWidth: 200 }} onClick={handleCarClick}>
+    <Card sx={{ maxWidth: 400 }} onClick={handleCarClick}>
       <CardActionArea>
         <CardMedia component="img" height="160" image={carDescription.image} />
         <CardContent>

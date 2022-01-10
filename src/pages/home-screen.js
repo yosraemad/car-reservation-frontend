@@ -66,13 +66,15 @@ const HomeScreen = () => {
 
   return accCtx.token || localStorage.getItem("token") ? (
     <>
-      <Filters
-        offices={offices}
-        currentOffice={cars[0] && cars[0].office_id}
-        setCars={setCars}
-        token={localStorage.getItem("token")}
-      />
-      <AvailableCars cars={cars} />
+      <div style={{ padding: 50 }}>
+        <Filters
+          offices={offices}
+          currentOffice={cars[0] && cars[0].office_id}
+          setCars={setCars}
+          token={localStorage.getItem("token")}
+        />
+        <AvailableCars cars={cars} />
+      </div>
     </>
   ) : (
     <h1>

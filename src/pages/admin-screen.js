@@ -17,6 +17,9 @@ const AdminScreen = () => {
       <button onClick={() => navigate("/reservation-search")}> 
         Reservation advanced search
       </button>
+      <button onClick={() => navigate("/edit-car-status")}>
+        Edit Car status
+      </button>
     </div>
   );
 };

@@ -44,16 +44,24 @@ const CarDetails = (props) => {
     );
   };
 
+  const labelStyle = {
+    fontSize: 18,
+    color: "navy",
+  };
+
   return (
-    <div>
+    <div style={{ padding: 30 }}>
       <img src={officeCar.Car.CarDescription.image} />
-      <p>brand: {officeCar.Car.CarDescription.brand}</p>
-      <p>model: {officeCar.Car.CarDescription.model}</p>
-      <p>year: {officeCar.Car.CarDescription.year}</p>
-      <p>color: {officeCar.Car.CarDescription.color}</p>
-      <p>transmission: {officeCar.Car.CarDescription.transmission}</p>
-      <p>type: {officeCar.Car.CarDescription.type}</p>
-      <p>Office Address: {officeCar.Office.address}</p>
+      <p style={labelStyle}>brand: {officeCar.Car.CarDescription.brand}</p>
+      <p style={labelStyle}>model: {officeCar.Car.CarDescription.model}</p>
+      <p style={labelStyle}>year: {officeCar.Car.CarDescription.year}</p>
+      <p style={labelStyle}>color: {officeCar.Car.CarDescription.color}</p>
+      <p style={labelStyle}>
+        transmission: {officeCar.Car.CarDescription.transmission}
+      </p>
+      <p style={labelStyle}>type: {officeCar.Car.CarDescription.type}</p>
+      <p style={labelStyle}>Office Address: {officeCar.Office.address}</p>
+      <br />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label="Pickup Date"
@@ -75,6 +83,9 @@ const CarDetails = (props) => {
           renderInput={(params) => <TextField {...params} />}
         />
       </LocalizationProvider>
+      <br />
+      <br />
+
       <label>pickup address: </label>
       <CustomInput
         format="YYYY-MM-DD"
@@ -85,6 +96,8 @@ const CarDetails = (props) => {
         ref={pickUpAddress}
       />
       <br></br>
+      <br />
+
       <label>
         <input
           type="checkbox"
@@ -93,7 +106,10 @@ const CarDetails = (props) => {
         />
         <span>Pay Later</span>
       </label>
+      <br />
       <h3>Total Price: LE{totalPrice < 0 ? 0 : totalPrice}</h3>
+      <br />
+
       <CustomButton onClicked={handleSubmit}>Submit</CustomButton>
     </div>
   );

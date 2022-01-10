@@ -11,10 +11,7 @@ const CarDescItem = (props) => {
   const navigate = useNavigate();
 
   return (
-    <Card
-      style={{ margin: 30 }}
-      sx={{ maxWidth: 500, minWidth: 400 }}
-    >
+    <Card style={{ margin: 30 }} sx={{ maxWidth: 500, minWidth: 400 }}>
       <CardActionArea>
         <CardMedia component="img" height="160" image={carDesc.image} />
         <CardContent>

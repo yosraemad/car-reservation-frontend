@@ -20,11 +20,14 @@ import CarsReport from "./components/reports/CarsReport";
 import CarStatusReport from "./components/reports/CarStatusReport";
 import CustomerReport from "./components/reports/CustomerReport";
 import PaymentReport from "./components/reports/PaymentReport";
+import ReservationSearchScreen from "./pages/reservation-search-screen";
+import EditCarStatusPage from "./pages/edit-car-status-page";
+import SetStatusPage from "./pages/set-status-page";
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <AccountProvider>
-        <Header />
         <br></br>
         <Routes>
           <Route path="/" element={<LoginScreen></LoginScreen>}></Route>
@@ -44,6 +47,10 @@ function App() {
             <Route path="customer" element={<CustomerReport />} />
             <Route path="payments" element={<PaymentReport />} />
           </Route>
+          <Route path="car-search" element={<CarSearchScreen />} />
+          <Route path="reservation-search" element={<ReservationSearchScreen />} />
+          <Route path="edit-car-status" element={<EditCarStatusPage />} />
+          <Route path="set-status" element={<SetStatusPage />} />
         </Routes>
       </AccountProvider>
     </ThemeProvider>

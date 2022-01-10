@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -6,6 +6,7 @@ import DatePicker from "@mui/lab/DatePicker";
 import CustomInput from "../UI/CustomInput";
 import CustomButton from "../UI/CustomButton";
 import useHttp from "../../hooks/use-http";
+import { useNavigate } from "react-router-dom";
 const CarDetails = (props) => {
   const { officeCar } = props;
   const [returnDate, setReturnDate] = useState(null);
@@ -13,6 +14,36 @@ const CarDetails = (props) => {
   const [pickup, setPickup] = useState(null);
   const pickUpAddress = useRef();
   const [checked, setChecked] = React.useState(false);
+  const [reservations, setReservations] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(async () => {
+    const setReservationTimes = (responseData) => {
+      console.log(responseData);
+      if (responseData) {
+        let reservationsArray = [];
+        for (let i = 0; i < responseData.length; i++) {
+          reservationsArray.push(responseData[i]);
+        }
+        setReservations(reservationsArray);
+      }
+    };
+    const getReservationTimesOfCars = async () => {
+      const response = await sendRequest(
+        {
+          url: `http://localhost:5000/api/v1/reservations/car/${officeCar.car_id}`,
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+        },
+        setReservationTimes.bind(null)
+      );
+    };
+
+    getReservationTimesOfCars();
+  }, []);
 
   const totalPrice =
     Math.ceil(
@@ -21,6 +52,9 @@ const CarDetails = (props) => {
 
   const reserved = (responseData) => {
     console.log(responseData);
+    if (responseData) {
+      navigate("/home");
+    }
   };
 
   const handleSubmit = () => {
@@ -48,16 +82,24 @@ const CarDetails = (props) => {
     );
   };
 
+  const labelStyle = {
+    fontSize: 18,
+    color: "navy",
+  };
+
   return (
-    <div>
+    <div style={{ padding: 30 }}>
       <img src={officeCar.Car.CarDescription.image} />
-      <p>brand: {officeCar.Car.CarDescription.brand}</p>
-      <p>model: {officeCar.Car.CarDescription.model}</p>
-      <p>year: {officeCar.Car.CarDescription.year}</p>
-      <p>color: {officeCar.Car.CarDescription.color}</p>
-      <p>transmission: {officeCar.Car.CarDescription.transmission}</p>
-      <p>type: {officeCar.Car.CarDescription.type}</p>
-      <p>Office Address: {officeCar.Office.address}</p>
+      <p style={labelStyle}>brand: {officeCar.Car.CarDescription.brand}</p>
+      <p style={labelStyle}>model: {officeCar.Car.CarDescription.model}</p>
+      <p style={labelStyle}>year: {officeCar.Car.CarDescription.year}</p>
+      <p style={labelStyle}>color: {officeCar.Car.CarDescription.color}</p>
+      <p style={labelStyle}>
+        transmission: {officeCar.Car.CarDescription.transmission}
+      </p>
+      <p style={labelStyle}>type: {officeCar.Car.CarDescription.type}</p>
+      <p style={labelStyle}>Office Address: {officeCar.Office.address}</p>
+      <br />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label="Pickup Date"
@@ -79,6 +121,9 @@ const CarDetails = (props) => {
           renderInput={(params) => <TextField {...params} />}
         />
       </LocalizationProvider>
+      <br />
+      <br />
+
       <label>pickup address: </label>
       <CustomInput
         format="YYYY-MM-DD"
@@ -89,6 +134,8 @@ const CarDetails = (props) => {
         ref={pickUpAddress}
       />
       <br></br>
+      <br />
+
       <label>
         <input
           type="checkbox"
@@ -97,8 +144,23 @@ const CarDetails = (props) => {
         />
         <span>Pay Later</span>
       </label>
+      <br />
       <h3>Total Price: LE{totalPrice < 0 ? 0 : totalPrice}</h3>
+      <br />
+
       <CustomButton onClicked={handleSubmit}>Submit</CustomButton>
+      {error && <div style={{ backgroundColor: "red" }}>{error}</div>}
+      <h3>Current Reservation</h3>
+      {reservations.map((reservation) => {
+        return (
+          <div>
+            <p>
+              {reservation.Pickup.pickup_date} - {reservation.return_date}
+            </p>
+            <hr />
+          </div>
+        );
+      })}
     </div>
   );
 };

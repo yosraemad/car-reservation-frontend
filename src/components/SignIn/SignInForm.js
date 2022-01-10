@@ -45,9 +45,7 @@ const SignInForm = (props) => {
         don't have an account ? <Link to="sign-up">Sign Up</Link>{" "}
       </p>
       <br></br>
-      <p>
-        Move to home screen ? <Link to="home">Home Screen</Link>{" "}
-      </p>
+      <br />
     </form>
   );
 };

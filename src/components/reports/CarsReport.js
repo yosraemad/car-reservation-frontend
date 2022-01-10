@@ -13,7 +13,7 @@ const CarsReport = () => {
   const [pickup, setPickup] = useState(null);
   const [resDate, setResDate] = useState(null);
   const { error, isLoading, sendRequest } = useHttp();
-  const [cars, setReservations] = useState([]);
+  const [cars, setCars] = useState([]);
   const carIdRef = useRef();
 
   const fillCars = (responseData) => {
@@ -22,7 +22,7 @@ const CarsReport = () => {
     for (let i = 0; i < responseData.length; i++) {
       res.push(responseData[i]);
     }
-    setReservations(res);
+    setCars(res);
   };
 
   const handleSubmit = async () => {

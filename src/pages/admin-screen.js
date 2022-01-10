@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import AccountContext from "../models/account";
 
 const AdminScreen = () => {
   const navigate = useNavigate();
@@ -14,11 +15,22 @@ const AdminScreen = () => {
     fontSize: 20,
   };
 
+  const accCtx = useContext(AccountContext);
+
+  const handleLogout = () => {
+    accCtx.setAccount({}, null);
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <div style={{ padding: 20 }}>
       <h1 style={{ color: "white", fontFamily: "sans-serif", fontSize: 30 }}>
         Welcome to the admin dashboard
       </h1>
+      <button style={buttonStyle} onClick={handleLogout}>
+        logout
+      </button>
       <button style={buttonStyle} onClick={() => navigate("/new-car-desc")}>
         create car
       </button>

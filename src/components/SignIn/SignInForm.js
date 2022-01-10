@@ -1,7 +1,7 @@
 import CustomButton from "../UI/CustomButton";
 import CustomInput from "../UI/CustomInput";
 import styles from "../../styles/form.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React from "react";
 import labelstyles from "../../styles/label.module.css";
 import { useRef } from "react";

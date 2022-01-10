@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import CarItem from "../components/UI/caritem";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AccountContext from "../models/account";
 import AvailableCars from "../components/HomeScreen/AvailableCars";
 import useHttp from "../hooks/use-http";
@@ -11,6 +11,8 @@ const HomeScreen = () => {
   const [cars, setCars] = useState([]);
   const { isLoading, error, sendRequest } = useHttp();
   const [offices, setOffices] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(async () => {
     const setCarData = (responseData) => {
@@ -64,9 +66,27 @@ const HomeScreen = () => {
     await getOffices();
   }, []);
 
+  const handleLogout = () => {
+    accCtx.setAccount({}, null);
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return accCtx.token || localStorage.getItem("token") ? (
     <>
       <div style={{ padding: 50 }}>
+        <button
+          style={{
+            width: 300,
+            height: 30,
+            backgroundColor: "navy",
+            color: "white",
+          }}
+          onClick={handleLogout}
+        >
+          Logout
+        </button>
+
         <Filters
           offices={offices}
           currentOffice={cars[0] && cars[0].office_id}
@@ -74,6 +94,7 @@ const HomeScreen = () => {
           token={localStorage.getItem("token")}
         />
         <AvailableCars cars={cars} />
+        <br />
       </div>
     </>
   ) : (

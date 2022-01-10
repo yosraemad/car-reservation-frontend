@@ -39,9 +39,13 @@ const CarDescriptionFilters = (props) => {
     props.handleFilter(queryString);
   };
 
+  const labelStyle = {
+    color: "white",
+  };
+
   return (
     <div>
-      <label className={labelstyles.label}>Brand: </label>
+      <label style={labelStyle}>Brand: </label>
       <CustomInput
         labelText="brand"
         id="brand"
@@ -49,8 +53,7 @@ const CarDescriptionFilters = (props) => {
         type="text"
         ref={brandRef}
       />
-      <br />
-      <label className={labelstyles.label}>Model: </label>
+      <label style={labelStyle}>Model: </label>
       <CustomInput
         labelText="model"
         id="model"
@@ -58,9 +61,8 @@ const CarDescriptionFilters = (props) => {
         type="text"
         ref={modelRef}
       />
-      <br />
 
-      <label className={labelstyles.label}>Year: </label>
+      <label style={labelStyle}>Year: </label>
       <CustomInput
         labelText="year"
         id="year"
@@ -68,9 +70,8 @@ const CarDescriptionFilters = (props) => {
         type="text"
         ref={yearRef}
       />
-      <br />
 
-      <label className={labelstyles.label}>Color: </label>
+      <label style={labelStyle}>Color: </label>
       <CustomInput
         labelText="color"
         id="color"
@@ -80,7 +81,7 @@ const CarDescriptionFilters = (props) => {
       />
       <br />
 
-      <label className={labelstyles.label}>Transmission: </label>
+      <label style={labelStyle}>Transmission: </label>
       <CustomInput
         labelText="transmission"
         id="transmission"
@@ -88,9 +89,8 @@ const CarDescriptionFilters = (props) => {
         type="text"
         ref={transmissionRef}
       />
-      <br />
 
-      <label className={labelstyles.label}>Type: </label>
+      <label style={labelStyle}>Type: </label>
       <CustomInput
         labelText="type"
         id="type"
@@ -98,9 +98,8 @@ const CarDescriptionFilters = (props) => {
         type="text"
         ref={typeRef}
       />
-      <br />
 
-      <label className={labelstyles.label}>Image: </label>
+      <label style={labelStyle}>Image: </label>
       <CustomInput
         labelText="image"
         id="image"
@@ -108,9 +107,10 @@ const CarDescriptionFilters = (props) => {
         type="text"
         ref={imageRef}
       />
-      <br />
 
-      <CustomButton onClicked={filter}>Filter</CustomButton>
+      <CustomButton size="large" onClicked={filter}>
+        Filter
+      </CustomButton>
     </div>
   );
 };

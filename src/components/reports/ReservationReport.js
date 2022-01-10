@@ -5,7 +5,7 @@ import DatePicker from "@mui/lab/DatePicker";
 import TextField from "@mui/material/TextField";
 import CustomButton from "../UI/CustomButton";
 import useHttp from "../../hooks/use-http";
-import ReservationDetails from "../Reservation/ReservationDetails";
+import ReservationDetails from "./details/ReservationDetails";
 const ReservationReport = () => {
   const [returnDate, setReturnDate] = useState(null);
   const [pickup, setPickup] = useState(null);
@@ -28,22 +28,8 @@ const ReservationReport = () => {
     const pickupDate = new Date(pickup);
     const resDateDate = new Date(resDate);
     queryString +=
-      "return_date=" +
-      returnDateDate.getFullYear() +
-      "-" +
-      returnDateDate.getMonth() +
-      1 +
-      "-" +
-      returnDateDate.getDay() +
-      "&";
-    queryString +=
-      "pickup_date=" +
-      pickupDate.getFullYear() +
-      "-" +
-      pickupDate.getMonth() +
-      1 +
-      "-" +
-      pickupDate.getDay();
+      "return_date=" + returnDateDate.toISOString().substring(0, 10) + "&";
+    queryString += "pickup_date=" + pickupDate.toISOString().substring(0, 10);
     console.log(queryString);
     const response = await sendRequest(
       {

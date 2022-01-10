@@ -34,20 +34,8 @@ const CarDetails = (props) => {
         body: {
           car_id: officeCar.car_id,
           pickup_date:
-            "pickup_date=" +
-            pickupDate.getFullYear() +
-            "-" +
-            pickupDate.getMonth() +
-            1 +
-            "-" +
-            pickupDate.getDay(),
-          return_date:
-            returnDateDate.getFullYear() +
-            "-" +
-            returnDateDate.getMonth() +
-            1 +
-            "-" +
-            returnDateDate.getDay(),
+            "pickup_date=" + pickupDate.toISOString().substring(0, 10),
+          return_date: returnDateDate.toISOString().substring(0, 10),
           pickup_address: pickUpAddress.current.value,
           payment_time: checked ? "later" : "now",
         },

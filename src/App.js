@@ -14,6 +14,12 @@ import ReservationScreen from "./pages/reservation-screen";
 import CarSearchScreen from "./pages/car-search-screen";
 import CustomerSearchScreen from "./pages/customer-search-screen";
 import CreateCarOfficeScreen from "./pages/create-car-office-screen";
+import ReportScreen from "./pages/report-screen";
+import ReservationReport from "./components/reports/ReservationReport";
+import CarsReport from "./components/reports/CarsReport";
+import CarStatusReport from "./components/reports/CarStatusReport";
+import CustomerReport from "./components/reports/CustomerReport";
+import PaymentReport from "./components/reports/PaymentReport";
 import ReservationSearchScreen from "./pages/reservation-search-screen";
 import EditCarStatusPage from "./pages/edit-car-status-page";
 import SetStatusPage from "./pages/set-status-page";
@@ -34,6 +40,13 @@ function App() {
           <Route path="car-search" element={<CarSearchScreen />} />
           <Route path="customer-search" element={<CustomerSearchScreen />} />
           <Route path="create-office-car" element={<CreateCarOfficeScreen />} />
+          <Route path="reports" element={<ReportScreen />}>
+            <Route index path="reservations" element={<ReservationReport />} />
+            <Route path="car" element={<CarsReport />} />
+            <Route path="carStatus" element={<CarStatusReport />} />
+            <Route path="customer" element={<CustomerReport />} />
+            <Route path="payments" element={<PaymentReport />} />
+          </Route>
           <Route path="car-search" element={<CarSearchScreen />} />
           <Route path="reservation-search" element={<ReservationSearchScreen />} />
           <Route path="edit-car-status" element={<EditCarStatusPage />} />

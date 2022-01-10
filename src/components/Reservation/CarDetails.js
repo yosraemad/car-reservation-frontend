@@ -9,7 +9,7 @@ import useHttp from "../../hooks/use-http";
 import { useNavigate } from "react-router-dom";
 const CarDetails = (props) => {
   const { officeCar } = props;
-  const [returnDate, setReturnDate] = useState();
+  const [returnDate, setReturnDate] = useState(null);
   const { isLoading, error, sendRequest } = useHttp();
   const [pickup, setPickup] = useState(null);
   const pickUpAddress = useRef();
@@ -58,14 +58,18 @@ const CarDetails = (props) => {
   };
 
   const handleSubmit = () => {
+    const returnDateDate = new Date(returnDate);
+    const pickupDate = new Date(pickup);
+
     const request = sendRequest(
       {
         url: "http://localhost:5000/api/v1/reservations",
         method: "POST",
         body: {
           car_id: officeCar.car_id,
-          pickup_date: pickup,
-          return_date: returnDate,
+          pickup_date:
+            "pickup_date=" + pickupDate.toISOString().substring(0, 10),
+          return_date: returnDateDate.toISOString().substring(0, 10),
           pickup_address: pickUpAddress.current.value,
           payment_time: checked ? "later" : "now",
         },
